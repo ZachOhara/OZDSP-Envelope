@@ -16,16 +16,62 @@ enum EParameters
 	kNumParams
 };
 
+std::vector<ParameterInfo> kParameterInfoList = {
+	ParameterInfo()
+		.InitParam("Attack", kAttackTimePid, KNOB_80_ID, 10, 30)
+		.InitLabel()
+		.MakeEnvelopeAttackTimeParam(),
+	ParameterInfo()
+		.InitParam("Decay", kDecayTimePid, KNOB_80_ID, 110, 30)
+		.InitLabel()
+		.MakeEnvelopeDecayTimeParam(),
+	ParameterInfo()
+		.InitParam("Sustain", kSustainLevelPid, KNOB_80_ID, 210, 30)
+		.InitLabel()
+		.MakePercentageParam(),
+	ParameterInfo()
+		.InitParam("Release", kReleaseTimePid, KNOB_80_ID, 310, 30)
+		.InitLabel()
+		.MakeEnvelopeDecayTimeParam(),
+	ParameterInfo()
+		.InitParam("Attack Shape", kAttackShapePid, KNOB_80_ID, 10, 150)
+		.InitLabel()
+		.MakeEnvelopeShapeParam(),
+	ParameterInfo()
+		.InitParam("Decay Shape", kDecayShapePid, KNOB_80_ID, 110, 150)
+		.InitLabel()
+		.MakeEnvelopeShapeParam(),
+	ParameterInfo()
+		.InitParam("Release Shape", kReleaseShapePid, KNOB_80_ID, 310, 150)
+		.InitLabel()
+		.MakeEnvelopeShapeParam(),
+};
+
 OZDSP_Envelope::OZDSP_Envelope(IPlugInstanceInfo instanceInfo) :
-	CommonPlugBase(instanceInfo, kNumParams, kNumPrograms,
+	CorePlugBase(instanceInfo, kNumParams, kNumPrograms,
 		MakeGraphics(this, GUI_WIDTH, GUI_HEIGHT),
-		COMMONPLUG_CTOR_PARAMS),
-	mEnvelopeProcessor(this),
-	mOscillator(this),
-	mTuningProcessor(this)
+		COMMONPLUG_CTOR_PARAMS)
 {
 	SetBackground(BACKGROUND_ID, BACKGROUND_FN);
 	RegisterBitmap(KNOB_80_ID, KNOB_80_FN, KNOB_FRAMES);
+
+	AddParameterList(kParameterInfoList);
+
+	RegisterProcessorList({
+		&mOscillator,
+		&mEnvelopeProcessor,
+		&mTuningProcessor
+	});
+
+	mEnvelopeProcessor.RegisterParameterList({
+		{ kAttackTimePid, EnvelopeProcessor::kAttackTimeParam },
+		{ kDecayTimePid, EnvelopeProcessor::kDecayTimeParam },
+		{ kSustainLevelPid, EnvelopeProcessor::kSustainLevelParam },
+		{ kReleaseTimePid, EnvelopeProcessor::kReleaseTimeParam },
+		{ kAttackShapePid, EnvelopeProcessor::kAttackShapeParam },
+		{ kDecayShapePid, EnvelopeProcessor::kDecayShapeParam },
+		{ kReleaseShapePid, EnvelopeProcessor::kReleaseShapeParam }
+	});
 
 	mOscillator.SetWaveform(Oscillator::kTriangleWave);
 
@@ -36,55 +82,6 @@ OZDSP_Envelope::~OZDSP_Envelope()
 {
 }
 
-ParameterInfoList OZDSP_Envelope::BuildParameterInfoList()
-{
-	return {
-		ParameterInfo()
-			.InitParam("Attack", kAttackTimePid, KNOB_80_ID, 10, 30)
-			.InitLabel()
-			.MakeEnvelopeAttackTimeParam(),
-		ParameterInfo()
-			.InitParam("Decay", kDecayTimePid, KNOB_80_ID, 110, 30)
-			.InitLabel()
-			.MakeEnvelopeDecayTimeParam(),
-		ParameterInfo()
-			.InitParam("Sustain", kSustainLevelPid, KNOB_80_ID, 210, 30)
-			.InitLabel()
-			.MakePercentageParam(),
-		ParameterInfo()
-			.InitParam("Release", kReleaseTimePid, KNOB_80_ID, 310, 30)
-			.InitLabel()
-			.MakeEnvelopeDecayTimeParam(),
-		ParameterInfo()
-			.InitParam("Attack Shape", kAttackShapePid, KNOB_80_ID, 10, 150)
-			.InitLabel()
-			.MakeEnvelopeShapeParam(),
-		ParameterInfo()
-			.InitParam("Decay Shape", kDecayShapePid, KNOB_80_ID, 110, 150)
-			.InitLabel()
-			.MakeEnvelopeShapeParam(),
-		ParameterInfo()
-			.InitParam("Release Shape", kReleaseShapePid, KNOB_80_ID, 310, 150)
-			.InitLabel()
-			.MakeEnvelopeShapeParam(),
-	};
-}
-
-ProcessorRegistry OZDSP_Envelope::BuildProcessorRegistry()
-{
-	return {
-		{&mOscillator, {}},
-		{&mTuningProcessor, {}},
-		{&mEnvelopeProcessor, {
-			{kAttackTimePid, EnvelopeProcessor::kAttackTimeParam},
-			{kDecayTimePid, EnvelopeProcessor::kDecayTimeParam},
-			{kSustainLevelPid, EnvelopeProcessor::kSustainLevelParam},
-			{kReleaseTimePid, EnvelopeProcessor::kReleaseTimeParam},
-			{kAttackShapePid, EnvelopeProcessor::kAttackShapeParam},
-			{kDecayShapePid, EnvelopeProcessor::kDecayShapeParam},
-			{kReleaseShapePid, EnvelopeProcessor::kReleaseShapeParam}}}
-	};
-}
 
 void OZDSP_Envelope::ProcessMidiMsg(IMidiMsg* pMessage)
 {

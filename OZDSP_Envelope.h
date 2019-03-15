@@ -3,18 +3,18 @@
 
 #include "IPlug_include_in_plug_hdr.h"
 
-#include "../OZDSP_Common/CommonPlugBase.h"
-#include "../OZDSP_Common/midi/MidiStackReciever.h"
-#include "../OZDSP_Common/midi/TuningProcessor.h"
-#include "../OZDSP_Common/parameter/ParameterInfo.h"
-#include "../OZDSP_Common/processing/EnvelopeProcessor.h"
-#include "../OZDSP_Common/processing/Oscillator.h"
-#include "../OZDSP_Common/processing/VolumeProcessor.h"
+#include "../OZDSP_Core/CorePlugBase.h"
+#include "../OZDSP_Core/audio/EnvelopeProcessor.h"
+#include "../OZDSP_Core/audio/Oscillator.h"
+#include "../OZDSP_Core/audio/VolumeProcessor.h"
+#include "../OZDSP_Core/midi/MidiStackReciever.h"
+#include "../OZDSP_Core/midi/TuningProcessor.h"
+#include "../OZDSP_Core/parameter/ParameterInfo.h"
 
 #include <chrono>
 #include <iostream>
 
-class OZDSP_Envelope : public CommonPlugBase
+class OZDSP_Envelope : public CorePlugBase
 {
 public:
 	OZDSP_Envelope(IPlugInstanceInfo instanceInfo);
@@ -23,16 +23,12 @@ public:
 	void ProcessMidiMsg(IMidiMsg* pMessage) override;
 	void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames) override;
 
-protected:
-	ParameterInfoList BuildParameterInfoList() override;
-	ProcessorRegistry BuildProcessorRegistry() override;
-
 private:
 	Oscillator mOscillator;
 	EnvelopeProcessor mEnvelopeProcessor;
+	TuningProcessor mTuningProcessor;
 
 	MidiStackReciever mMidiReciver;
-	TuningProcessor mTuningProcessor;
 
 	std::queue<MidiEvent> mMidiEventQueue;
 
