@@ -7,6 +7,7 @@
 #include "../OZDSP_Core/audio/EnvelopeProcessor.h"
 #include "../OZDSP_Core/audio/Oscillator.h"
 #include "../OZDSP_Core/audio/VolumeProcessor.h"
+#include "../OZDSP_Core/graphic/EnvelopeShapeGraphic.h"
 #include "../OZDSP_Core/midi/MidiStackReciever.h"
 #include "../OZDSP_Core/midi/TuningProcessor.h"
 #include "../OZDSP_Core/parameter/ParameterInfo.h"

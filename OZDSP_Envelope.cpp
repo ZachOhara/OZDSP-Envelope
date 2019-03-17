@@ -75,6 +75,9 @@ OZDSP_Envelope::OZDSP_Envelope(IPlugInstanceInfo instanceInfo) :
 
 	mOscillator.SetWaveform(Oscillator::kTriangleWave);
 
+	EnvelopeShapeGraphic* envelopeShape = new EnvelopeShapeGraphic(this, &mEnvelopeProcessor, IRECT(20, 240, 380, 370));
+	GetGraphics()->AttachControl(envelopeShape);
+
 	FinishConstruction();
 }
 
