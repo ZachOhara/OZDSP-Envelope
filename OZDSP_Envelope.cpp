@@ -20,11 +20,11 @@ std::vector<ParameterInfo> kParameterInfoList = {
 	ParameterInfo()
 		.InitParam("Attack", kAttackTimePid, KNOB_80_ID, 10, 30)
 		.InitLabel()
-		.MakeEnvelopeAttackTimeParam(),
+		.MakeEnvelopeTimeParam(),
 	ParameterInfo()
 		.InitParam("Decay", kDecayTimePid, KNOB_80_ID, 110, 30)
 		.InitLabel()
-		.MakeEnvelopeDecayTimeParam(),
+		.MakeEnvelopeTimeParam(),
 	ParameterInfo()
 		.InitParam("Sustain", kSustainLevelPid, KNOB_80_ID, 210, 30)
 		.InitLabel()
@@ -32,7 +32,7 @@ std::vector<ParameterInfo> kParameterInfoList = {
 	ParameterInfo()
 		.InitParam("Release", kReleaseTimePid, KNOB_80_ID, 310, 30)
 		.InitLabel()
-		.MakeEnvelopeDecayTimeParam(),
+		.MakeEnvelopeTimeParam(),
 	ParameterInfo()
 		.InitParam("Attack Shape", kAttackShapePid, KNOB_80_ID, 10, 150)
 		.InitLabel()
