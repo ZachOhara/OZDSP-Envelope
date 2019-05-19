@@ -57,20 +57,35 @@ instrument determined by PLUG _IS _INST
 
 #define PLUG_DOES_STATE_CHUNKS 0
 
-// Unique IDs for each image resource.
+// GUI dimensions
+#define GUI_WIDTH 320
+#define GUI_HEIGHT 350
+// Unique IDs for each image resource
 #define BACKGROUND_ID 101
-#define KNOB_80_ID 201
-
-// Image resource locations for this plug.
+#define ATTACK_SHAPE_CONTROL_ID 201
+#define ATTACK_TIME_CONTROL_ID 202
+#define DECAY_SHAPE_CONTROL_ID 203
+#define DECAY_TIME_CONTROL_ID 204
+#define RELEASE_SHAPE_CONTROL_ID 205
+#define RELEASE_TIME_CONTROL_ID 206
+#define SUSTAIN_LEVEL_CONTROL_ID 207
+// Image resource locations for this plug
 #define BACKGROUND_FN "resources/img/Envelope.png"
-#define KNOB_80_FN "resources/img/knob_green80.png"
-
+#define ATTACK_SHAPE_CONTROL_FN "resources/img/attack_shape.png"
+#define ATTACK_TIME_CONTROL_FN "resources/img/attack_time.png"
+#define DECAY_SHAPE_CONTROL_FN "resources/img/decay_shape.png"
+#define DECAY_TIME_CONTROL_FN "resources/img/decay_time.png"
+#define RELEASE_SHAPE_CONTROL_FN "resources/img/release_shape.png"
+#define RELEASE_TIME_CONTROL_FN "resources/img/release_time.png"
+#define SUSTAIN_LEVEL_CONTROL_FN "resources/img/sustain_level.png"
 // Number of frames in the bitmaps
-#define KNOB_FRAMES 128
-
-// GUI default dimensions
-#define GUI_WIDTH 400
-#define GUI_HEIGHT 400
+#define ATTACK_SHAPE_CONTROL_FRAMES 128
+#define ATTACK_TIME_CONTROL_FRAMES 128
+#define DECAY_SHAPE_CONTROL_FRAMES 128
+#define DECAY_TIME_CONTROL_FRAMES 128
+#define RELEASE_SHAPE_CONTROL_FRAMES 128
+#define RELEASE_TIME_CONTROL_FRAMES 128
+#define SUSTAIN_LEVEL_CONTROL_FRAMES 128
 
 // on MSVC, you must define SA_API in the resource editor preprocessor macros as well as the c++ ones
 #if defined(SA_API)

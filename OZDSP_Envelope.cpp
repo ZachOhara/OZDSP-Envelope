@@ -4,47 +4,48 @@
 
 const int kNumPrograms = 0;
 
-enum EParameters
+enum EParams
 {
-	kAttackTimePid,
-	kDecayTimePid,
-	kSustainLevelPid,
-	kReleaseTimePid,
 	kAttackShapePid,
+	kAttackTimePid,
 	kDecayShapePid,
+	kDecayTimePid,
 	kReleaseShapePid,
+	kReleaseTimePid,
+	kSustainLevelPid,
 	kNumParams
 };
 
-std::vector<ParameterInfo> kParameterInfoList = {
+std::vector<ParameterInfo> kParameterList =
+{
 	ParameterInfo()
-		.InitParam("Attack", kAttackTimePid, KNOB_80_ID, 10, 30)
+		.InitParam("Attack Shape", kAttackShapePid, ATTACK_SHAPE_CONTROL_ID, 60, 130)
+		.InitLabel()
+		.MakeEnvelopeShapeParam(),
+	ParameterInfo()
+		.InitParam("Attack", kAttackTimePid, ATTACK_TIME_CONTROL_ID, 16, 30)
 		.InitLabel()
 		.MakeEnvelopeTimeParam(),
 	ParameterInfo()
-		.InitParam("Decay", kDecayTimePid, KNOB_80_ID, 110, 30)
+		.InitParam("Decay Shape", kDecayShapePid, DECAY_SHAPE_CONTROL_ID, 135, 130)
+		.InitLabel()
+		.MakeEnvelopeShapeParam(),
+	ParameterInfo()
+		.InitParam("Decay", kDecayTimePid, DECAY_TIME_CONTROL_ID, 92, 30)
 		.InitLabel()
 		.MakeEnvelopeTimeParam(),
 	ParameterInfo()
-		.InitParam("Sustain", kSustainLevelPid, KNOB_80_ID, 210, 30)
+		.InitParam("Release Shape", kReleaseShapePid, RELEASE_SHAPE_CONTROL_ID, 210, 130)
+		.InitLabel()
+		.MakeEnvelopeShapeParam(),
+	ParameterInfo()
+		.InitParam("Release", kReleaseTimePid, RELEASE_TIME_CONTROL_ID, 244, 30)
+		.InitLabel()
+		.MakeEnvelopeTimeParam(),
+	ParameterInfo()
+		.InitParam("Sustain", kSustainLevelPid, SUSTAIN_LEVEL_CONTROL_ID, 168, 30)
 		.InitLabel()
 		.MakePercentageParam(),
-	ParameterInfo()
-		.InitParam("Release", kReleaseTimePid, KNOB_80_ID, 310, 30)
-		.InitLabel()
-		.MakeEnvelopeTimeParam(),
-	ParameterInfo()
-		.InitParam("Attack Shape", kAttackShapePid, KNOB_80_ID, 10, 150)
-		.InitLabel()
-		.MakeEnvelopeShapeParam(),
-	ParameterInfo()
-		.InitParam("Decay Shape", kDecayShapePid, KNOB_80_ID, 110, 150)
-		.InitLabel()
-		.MakeEnvelopeShapeParam(),
-	ParameterInfo()
-		.InitParam("Release Shape", kReleaseShapePid, KNOB_80_ID, 310, 150)
-		.InitLabel()
-		.MakeEnvelopeShapeParam(),
 };
 
 OZDSP_Envelope::OZDSP_Envelope(IPlugInstanceInfo instanceInfo) :
@@ -53,29 +54,33 @@ OZDSP_Envelope::OZDSP_Envelope(IPlugInstanceInfo instanceInfo) :
 		COMMONPLUG_CTOR_PARAMS)
 {
 	SetBackground(BACKGROUND_ID, BACKGROUND_FN);
-	RegisterBitmap(KNOB_80_ID, KNOB_80_FN, KNOB_FRAMES);
 
-	AddParameterList(kParameterInfoList);
+	RegisterBitmap(ATTACK_SHAPE_CONTROL_ID, ATTACK_SHAPE_CONTROL_FN, ATTACK_SHAPE_CONTROL_FRAMES);
+	RegisterBitmap(ATTACK_TIME_CONTROL_ID, ATTACK_TIME_CONTROL_FN, ATTACK_TIME_CONTROL_FRAMES);
+	RegisterBitmap(DECAY_SHAPE_CONTROL_ID, DECAY_SHAPE_CONTROL_FN, DECAY_SHAPE_CONTROL_FRAMES);
+	RegisterBitmap(DECAY_TIME_CONTROL_ID, DECAY_TIME_CONTROL_FN, DECAY_TIME_CONTROL_FRAMES);
+	RegisterBitmap(RELEASE_SHAPE_CONTROL_ID, RELEASE_SHAPE_CONTROL_FN, RELEASE_SHAPE_CONTROL_FRAMES);
+	RegisterBitmap(RELEASE_TIME_CONTROL_ID, RELEASE_TIME_CONTROL_FN, RELEASE_TIME_CONTROL_FRAMES);
+	RegisterBitmap(SUSTAIN_LEVEL_CONTROL_ID, SUSTAIN_LEVEL_CONTROL_FN, SUSTAIN_LEVEL_CONTROL_FRAMES);
 
-	RegisterProcessorList({
-		&mOscillator,
-		&mEnvelopeProcessor,
-		&mTuningProcessor
-	});
+	AddParameterList(kParameterList);
 
-	mEnvelopeProcessor.RegisterParameterList({
-		{ kAttackTimePid, EnvelopeProcessor::kAttackTimeParam },
-		{ kDecayTimePid, EnvelopeProcessor::kDecayTimeParam },
-		{ kSustainLevelPid, EnvelopeProcessor::kSustainLevelParam },
-		{ kReleaseTimePid, EnvelopeProcessor::kReleaseTimeParam },
-		{ kAttackShapePid, EnvelopeProcessor::kAttackShapeParam },
-		{ kDecayShapePid, EnvelopeProcessor::kDecayShapeParam },
-		{ kReleaseShapePid, EnvelopeProcessor::kReleaseShapeParam }
-	});
+	RegisterProcessor(&mEnvelopeProcessor);
+	mEnvelopeProcessor.RegisterParameter(kAttackShapePid, EnvelopeProcessor::kAttackShapeParam);
+	mEnvelopeProcessor.RegisterParameter(kAttackTimePid, EnvelopeProcessor::kAttackTimeParam);
+	mEnvelopeProcessor.RegisterParameter(kDecayShapePid, EnvelopeProcessor::kDecayShapeParam);
+	mEnvelopeProcessor.RegisterParameter(kDecayTimePid, EnvelopeProcessor::kDecayTimeParam);
+	mEnvelopeProcessor.RegisterParameter(kReleaseShapePid, EnvelopeProcessor::kReleaseShapeParam);
+	mEnvelopeProcessor.RegisterParameter(kReleaseTimePid, EnvelopeProcessor::kReleaseTimeParam);
+	mEnvelopeProcessor.RegisterParameter(kSustainLevelPid, EnvelopeProcessor::kSustainLevelParam);
+
+	RegisterProcessor(&mOscillator);
+
+	RegisterProcessor(&mTuningProcessor);
 
 	mOscillator.SetWaveform(Oscillator::kTriangleWave);
 
-	EnvelopeShapeGraphic* envelopeShape = new EnvelopeShapeGraphic(this, &mEnvelopeProcessor, IRECT(20, 240, 380, 370));
+	EnvelopeShapeGraphic* envelopeShape = new EnvelopeShapeGraphic(this, &mEnvelopeProcessor, IRECT(15, 200, 305, 320));
 	GetGraphics()->AttachControl(envelopeShape);
 
 	FinishConstruction();

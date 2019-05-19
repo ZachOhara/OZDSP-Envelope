@@ -25,8 +25,8 @@ public:
 	void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames) override;
 
 private:
-	Oscillator mOscillator;
 	EnvelopeProcessor mEnvelopeProcessor;
+	Oscillator mOscillator;
 	TuningProcessor mTuningProcessor;
 
 	MidiStackReciever mMidiReciver;
