@@ -98,8 +98,6 @@ void OZDSP_Envelope::ProcessMidiMsg(IMidiMsg* pMessage)
 
 void OZDSP_Envelope::ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames)
 {
-	auto startTime = std::chrono::high_resolution_clock::now();
-
 	// Mutex is already locked for us.
 	const int nChannels = 2;
 
@@ -129,21 +127,6 @@ void OZDSP_Envelope::ProcessDoubleReplacing(double** inputs, double** outputs, i
 	}
 
 	mMidiReciver.FlushBlock(nFrames);
-
-	auto endTime = std::chrono::high_resolution_clock::now();
-	long long blockTime = std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime).count();
-	static long long avgBlockTime;
-	avgBlockTime += blockTime;
-	static int blockCount;
-	blockCount++;
-	if (blockCount > 10)
-	{
-		std::cout << "Block time: " << avgBlockTime / 10 << "\n";
-		std::cout.flush();
-		avgBlockTime = 0;
-		blockCount = 0;
-	}
-
 }
 
 void OZDSP_Envelope::HandleMidiEvent(MidiEvent midiEvent)

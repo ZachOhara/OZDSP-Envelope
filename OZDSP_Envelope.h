@@ -12,9 +12,6 @@
 #include "../OZDSP_Core/midi/TuningProcessor.h"
 #include "../OZDSP_Core/parameter/ParameterInfo.h"
 
-#include <chrono>
-#include <iostream>
-
 class OZDSP_Envelope : public CorePlugBase
 {
 public:
