@@ -33,4 +33,4 @@ private:
 	void HandleMidiEvent(MidiEvent midiEvent);
 };
 
-#endif
+#endif // !__OZDSP_ENVELOPE__
