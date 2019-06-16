@@ -66,15 +66,17 @@ instrument determined by PLUG _IS _INST
 #define ATTACK_TIME_CONTROL_ID 202
 #define DECAY_SHAPE_CONTROL_ID 203
 #define DECAY_TIME_CONTROL_ID 204
-#define RELEASE_SHAPE_CONTROL_ID 205
-#define RELEASE_TIME_CONTROL_ID 206
-#define SUSTAIN_LEVEL_CONTROL_ID 207
+#define PEAK_LEVEL_CONTROL_ID 205
+#define RELEASE_SHAPE_CONTROL_ID 206
+#define RELEASE_TIME_CONTROL_ID 207
+#define SUSTAIN_LEVEL_CONTROL_ID 208
 // Image resource locations for this plug
 #define BACKGROUND_FN "resources/img/Envelope.png"
 #define ATTACK_SHAPE_CONTROL_FN "resources/img/attack_shape.png"
 #define ATTACK_TIME_CONTROL_FN "resources/img/attack_time.png"
 #define DECAY_SHAPE_CONTROL_FN "resources/img/decay_shape.png"
 #define DECAY_TIME_CONTROL_FN "resources/img/decay_time.png"
+#define PEAK_LEVEL_CONTROL_FN "resources/img/peak_level.png"
 #define RELEASE_SHAPE_CONTROL_FN "resources/img/release_shape.png"
 #define RELEASE_TIME_CONTROL_FN "resources/img/release_time.png"
 #define SUSTAIN_LEVEL_CONTROL_FN "resources/img/sustain_level.png"
@@ -83,6 +85,7 @@ instrument determined by PLUG _IS _INST
 #define ATTACK_TIME_CONTROL_FRAMES 128
 #define DECAY_SHAPE_CONTROL_FRAMES 128
 #define DECAY_TIME_CONTROL_FRAMES 128
+#define PEAK_LEVEL_CONTROL_FRAMES 128
 #define RELEASE_SHAPE_CONTROL_FRAMES 128
 #define RELEASE_TIME_CONTROL_FRAMES 128
 #define SUSTAIN_LEVEL_CONTROL_FRAMES 128
