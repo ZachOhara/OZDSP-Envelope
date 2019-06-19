@@ -20,7 +20,7 @@ enum EParams
 std::vector<ParameterInfo> kParameterList =
 {
 	ParameterInfo()
-		.InitParam("Attack Shape", kAttackShapePid, ATTACK_SHAPE_CONTROL_ID, 102, 130)
+		.InitParam("Attack Shape", kAttackShapePid, ATTACK_SHAPE_CONTROL_ID, 36, 130)
 		.InitLabel(15, -5)
 		.MakeEnvelopeShapeParam(),
 	ParameterInfo()
@@ -28,7 +28,7 @@ std::vector<ParameterInfo> kParameterList =
 		.InitLabel(17, -5)
 		.MakeEnvelopeTimeParam(),
 	ParameterInfo()
-		.InitParam("Decay Shape", kDecayShapePid, DECAY_SHAPE_CONTROL_ID, 168, 130)
+		.InitParam("Decay Shape", kDecayShapePid, DECAY_SHAPE_CONTROL_ID, 102, 130)
 		.InitLabel(15, -5)
 		.MakeEnvelopeShapeParam(),
 	ParameterInfo()
@@ -36,7 +36,7 @@ std::vector<ParameterInfo> kParameterList =
 		.InitLabel(17, -5)
 		.MakeEnvelopeTimeParam(),
 	ParameterInfo()
-		.InitParam("Peak", kPeakLevelPid, PEAK_LEVEL_CONTROL_ID, 36, 130)
+		.InitParam("Peak", kPeakLevelPid, PEAK_LEVEL_CONTROL_ID, 168, 130)
 		.InitLabel(15, -5)
 		.MakePercentageParam(),
 	ParameterInfo()
