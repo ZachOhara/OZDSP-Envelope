@@ -21,35 +21,35 @@ std::vector<ParameterInfo> kParameterList =
 {
 	ParameterInfo()
 		.InitParam("Attack Shape", kAttackShapePid, ATTACK_SHAPE_CONTROL_ID, 102, 130)
-		.InitLabel()
+		.InitLabel(15, -5)
 		.MakeEnvelopeShapeParam(),
 	ParameterInfo()
 		.InitParam("Attack", kAttackTimePid, ATTACK_TIME_CONTROL_ID, 16, 30)
-		.InitLabel()
+		.InitLabel(17, -5)
 		.MakeEnvelopeTimeParam(),
 	ParameterInfo()
 		.InitParam("Decay Shape", kDecayShapePid, DECAY_SHAPE_CONTROL_ID, 168, 130)
-		.InitLabel()
+		.InitLabel(15, -5)
 		.MakeEnvelopeShapeParam(),
 	ParameterInfo()
 		.InitParam("Decay", kDecayTimePid, DECAY_TIME_CONTROL_ID, 92, 30)
-		.InitLabel()
+		.InitLabel(17, -5)
 		.MakeEnvelopeTimeParam(),
 	ParameterInfo()
 		.InitParam("Peak", kPeakLevelPid, PEAK_LEVEL_CONTROL_ID, 36, 130)
-		.InitLabel()
+		.InitLabel(15, -5)
 		.MakePercentageParam(),
 	ParameterInfo()
 		.InitParam("Release Shape", kReleaseShapePid, RELEASE_SHAPE_CONTROL_ID, 234, 130)
-		.InitLabel()
+		.InitLabel(15, -5)
 		.MakeEnvelopeShapeParam(),
 	ParameterInfo()
 		.InitParam("Release", kReleaseTimePid, RELEASE_TIME_CONTROL_ID, 244, 30)
-		.InitLabel()
+		.InitLabel(17, -5)
 		.MakeEnvelopeTimeParam(),
 	ParameterInfo()
 		.InitParam("Sustain", kSustainLevelPid, SUSTAIN_LEVEL_CONTROL_ID, 168, 30)
-		.InitLabel()
+		.InitLabel(17, -5)
 		.MakePercentageParam(),
 };
 
